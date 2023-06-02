@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="mainscreen">
+        <div id="loadingscreen">
+            Loading...
+        </div>
+        <div id="content">
+
+        </div>
+    </div>
+</body>
+
+<script>
+    let loadscreen = document.getElementById('loadingscreen')
+    window.addEventListener('load', async() => {
+        let resp = await fetch('/getfacts', {
+            'method': 'GET',
+            'headers': {
+                'Content-Type': 'application/json'
+            }
+        })
+        let respjs = await resp.json().then(
+            loadscreen.style.display = 'none'
+        )
+        let cont = document.getElementById('content')
+        cont.textContent = respjs.cont
+    })
+</script>
+
+</html>
